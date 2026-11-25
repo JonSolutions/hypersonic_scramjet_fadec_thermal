@@ -181,3 +181,19 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
         self.state_vector.integrated_lyapunov_energy = round(
             0.92 * self.state_vector.integrated_lyapunov_energy + 0.08 * mahalanobis_d2, 8
         )
+        self._transition_operational_regime(mahalanobis_dist, frame.redundant_channel_ok)
+        self._audit_counter += 1
+        return {
+            "status": "CONVERGED",
+            "node_id": self.node_id,
+            "primary_metric": "jp7_conversion_frac",
+            "secondary_metric": "ethylene_yield_mol",
+            "posterior_estimate": round(upd_x0, 7),
+            "posterior_velocity": round(upd_x1, 7),
+            "innovation_residual": round(innovation_y, 7),
+            "kalman_gain": round(kalman_gain_k0, 7),
+            "mahalanobis_distance": round(mahalanobis_dist, 7),
+            "covariance_trace": round(self.state_vector.covariance_trace(), 8),
+            "regime": self.state_vector.regime.value,
+            "audit_seq": self._audit_counter,
+        }
