@@ -209,3 +209,5 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM1:
             prev_ft = self.state_vector.consecutive_fault_ticks
             self.state_vector.consecutive_fault_ticks = max(0, prev_ft - 1)
             self.state_vector.regime = BilligShockTrainDuctState.HIGH_GRADIENT_DAMPING
+        else:
+            self.state_vector.consecutive_fault_ticks = 0
