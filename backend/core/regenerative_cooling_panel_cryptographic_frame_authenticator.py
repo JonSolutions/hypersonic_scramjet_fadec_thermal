@@ -138,3 +138,8 @@ class InconelMicrochannelWallPrimaryEquilibriumSolverM2:
         if not is_valid:
             self.state_vector.consecutive_fault_ticks += 1
             self.state_vector.regime = InconelMicrochannelWallState.DEGRADED_FALLBACK
+            return {
+                "status": "REJECTED_FRAME",
+                "errors": errors,
+                "regime": self.state_vector.regime.value,
+            }
