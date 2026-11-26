@@ -224,3 +224,6 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
             }
         mean_val = statistics.fmean(self._telemetry_window)
         sigma_val = statistics.pstdev(self._telemetry_window)
+        diffs = [
+            self._telemetry_window[i] - self._telemetry_window[i - 1]
+            for i in range(1, len(self._telemetry_window))
