@@ -137,3 +137,4 @@ class InconelMicrochannelWallPrimaryEquilibriumSolverM2:
         is_valid, errors = frame.validate_physical_bounds()
         if not is_valid:
             self.state_vector.consecutive_fault_ticks += 1
+            self.state_vector.regime = InconelMicrochannelWallState.DEGRADED_FALLBACK
