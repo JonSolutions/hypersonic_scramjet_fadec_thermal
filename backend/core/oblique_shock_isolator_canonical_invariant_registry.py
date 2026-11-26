@@ -197,3 +197,7 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM1:
             "regime": self.state_vector.regime.value,
             "audit_seq": self._audit_counter,
         }
+
+    def _transition_operational_regime(self, m_dist: float, redundant_ok: bool) -> None:
+        if not redundant_ok or m_dist > 6.5:
+            self.state_vector.consecutive_fault_ticks += 1
