@@ -145,3 +145,4 @@ class InconelMicrochannelWallPrimaryEquilibriumSolverM2:
             }
         x0, x1, x2, x3 = self.state_vector.state_estimate
         p0, p1, p2, p3 = self.state_vector.covariance_diag
+        pred_x0 = x0 + self.dt_sec * x1
