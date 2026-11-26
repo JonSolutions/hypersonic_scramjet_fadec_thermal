@@ -135,3 +135,5 @@ class InconelMicrochannelWallPrimaryEquilibriumSolverM2:
 
     def step_extended_kalman_filter(self, frame: InconelMicrochannelWallFrame) -> Dict[str, Any]:
         is_valid, errors = frame.validate_physical_bounds()
+        if not is_valid:
+            self.state_vector.consecutive_fault_ticks += 1
