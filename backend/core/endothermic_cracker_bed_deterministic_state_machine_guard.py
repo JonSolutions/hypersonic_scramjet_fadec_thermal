@@ -247,3 +247,8 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
         est_vel = self.state_vector.state_estimate[1]
         tracking_error = setpoint - est_pos
         kp_term = 1.35 * self.gain_alpha * tracking_error
+        kd_term = -0.28 * self.gain_alpha * est_vel
+        integral_proxy = sum(self.state_vector.innovation_history[-16:]) * 0.04
+        raw_u = kp_term + kd_term + integral_proxy
+        saturation_limit = abs(self.reference_setpoint) * 0.45 + 5.0
+        clamped_u = max(-saturation_limit, min(saturation_limit, raw_u))
