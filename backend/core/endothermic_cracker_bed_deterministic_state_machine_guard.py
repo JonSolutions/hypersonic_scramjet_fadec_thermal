@@ -223,3 +223,4 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
                 "lyapunov_exponent_est": -0.15,
             }
         mean_val = statistics.fmean(self._telemetry_window)
+        sigma_val = statistics.pstdev(self._telemetry_window)
