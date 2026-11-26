@@ -231,3 +231,5 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
         allan_var = sum(d * d for d in diffs) / max(2.0 * len(diffs), 1.0)
         peak_abs = max(abs(v) for v in self._telemetry_window)
         rms_val = math.sqrt(sum(v * v for v in self._telemetry_window) / len(self._telemetry_window))
+        crest = peak_abs / max(rms_val, 1e-9)
+        lyap = math.log(max(allan_var / max(self.tolerance_band ** 2, 1e-12), 1e-6)) * 0.05
