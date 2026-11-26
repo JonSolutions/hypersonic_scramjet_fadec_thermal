@@ -205,3 +205,7 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM1:
                 self.state_vector.regime = BilligShockTrainDuctState.INTERLOCK_SCRAM_LATCHED
             else:
                 self.state_vector.regime = BilligShockTrainDuctState.HIGH_GRADIENT_DAMPING
+        elif m_dist > 3.2:
+            prev_ft = self.state_vector.consecutive_fault_ticks
+            self.state_vector.consecutive_fault_ticks = max(0, prev_ft - 1)
+            self.state_vector.regime = BilligShockTrainDuctState.HIGH_GRADIENT_DAMPING
