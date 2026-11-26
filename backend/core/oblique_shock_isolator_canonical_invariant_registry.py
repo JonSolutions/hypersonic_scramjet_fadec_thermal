@@ -213,3 +213,7 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM1:
             self.state_vector.consecutive_fault_ticks = 0
             self.state_vector.regime = BilligShockTrainDuctState.CLOSED_LOOP_ACTIVE
 
+    def compute_spectral_stability_metrics(self) -> Dict[str, float]:
+        if len(self._telemetry_window) < 4:
+            return {
+                "window_mean": self.reference_setpoint,
