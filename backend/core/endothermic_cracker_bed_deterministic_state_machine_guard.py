@@ -240,3 +240,4 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
             "crest_factor": round(crest, 6),
             "lyapunov_exponent_est": round(lyap, 6),
         }
+
