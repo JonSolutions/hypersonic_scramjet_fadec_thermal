@@ -129,3 +129,9 @@ class InconelMicrochannelWallPrimaryEquilibriumSolverM2:
             "normalized_secondary": round(norm_s, 8),
             "non_linear_coupling": round(non_linear_term, 8),
             "helmholtz_energy": round(helmholtz_free_energy, 8),
+            "jacobian_determinant": round(jacobian_determinant, 8),
+            "effective_damping_ratio": round(damping_ratio, 8),
+        }
+
+    def step_extended_kalman_filter(self, frame: InconelMicrochannelWallFrame) -> Dict[str, Any]:
+        is_valid, errors = frame.validate_physical_bounds()
