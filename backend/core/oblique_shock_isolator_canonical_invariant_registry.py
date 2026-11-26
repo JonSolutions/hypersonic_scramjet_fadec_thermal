@@ -179,3 +179,21 @@ class BilligShockTrainDuctPrimaryEquilibriumSolverM1:
         if len(self._residual_window) > 128:
             self._residual_window.pop(0)
         self.state_vector.integrated_lyapunov_energy = round(
+            0.92 * self.state_vector.integrated_lyapunov_energy + 0.08 * mahalanobis_d2, 8
+        )
+        self._transition_operational_regime(mahalanobis_dist, frame.redundant_channel_ok)
+        self._audit_counter += 1
+        return {
+            "status": "CONVERGED",
+            "node_id": self.node_id,
+            "primary_metric": "pre_combustion_shock_x",
+            "secondary_metric": "unstart_margin_pct",
+            "posterior_estimate": round(upd_x0, 7),
+            "posterior_velocity": round(upd_x1, 7),
+            "innovation_residual": round(innovation_y, 7),
+            "kalman_gain": round(kalman_gain_k0, 7),
+            "mahalanobis_distance": round(mahalanobis_dist, 7),
+            "covariance_trace": round(self.state_vector.covariance_trace(), 8),
+            "regime": self.state_vector.regime.value,
+            "audit_seq": self._audit_counter,
+        }
