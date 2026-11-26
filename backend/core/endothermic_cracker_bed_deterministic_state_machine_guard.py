@@ -243,3 +243,5 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
 
     def synthesize_control_actuation_command(self, target_override: float = -1.0) -> Dict[str, Any]:
         setpoint = target_override if target_override > 0.0 else self.reference_setpoint
+        est_pos = self.state_vector.state_estimate[0]
+        est_vel = self.state_vector.state_estimate[1]
