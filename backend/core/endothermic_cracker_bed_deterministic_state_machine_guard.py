@@ -241,3 +241,5 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
             "lyapunov_exponent_est": round(lyap, 6),
         }
 
+    def synthesize_control_actuation_command(self, target_override: float = -1.0) -> Dict[str, Any]:
+        setpoint = target_override if target_override > 0.0 else self.reference_setpoint
