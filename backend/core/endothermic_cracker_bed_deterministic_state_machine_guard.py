@@ -252,3 +252,12 @@ class ZeoliteCatalystReactorPrimaryEquilibriumSolverM3:
         raw_u = kp_term + kd_term + integral_proxy
         saturation_limit = abs(self.reference_setpoint) * 0.45 + 5.0
         clamped_u = max(-saturation_limit, min(saturation_limit, raw_u))
+        digest_payload = f"{self.node_id}:{self.state_vector.epoch_ms}:{clamped_u:.6f}"
+        mac = hmac.new(
+            SIGNING_ENV_REF.encode("utf-8"),
+            digest_payload.encode("utf-8"),
+            hashlib.sha256,
+        ).hexdigest()[:24]
+        return {
+            "node_id": self.node_id,
+            "setpoint": round(setpoint, 6),
